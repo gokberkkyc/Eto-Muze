@@ -361,7 +361,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0,0,0,0.92);
+            background-color: rgba(0,0,0,0.95);
             z-index: 1000;
             display: flex;
             justify-content: center;
@@ -652,6 +652,66 @@
             transform: translateY(-2px);
         }
 
+        /* Modal Overlay for Form Success */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            border-top: 5px solid #d4af37;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 400px;
+        }
+
+        .modal-content h3 {
+            color: #8B1E15;
+            font-family: 'Georgia', serif;
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+
+        .modal-content p {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #444;
+            font-size: 1.1rem;
+        }
+
+        .modal-close-btn {
+            background-color: #8B1E15;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close-btn:hover { background-color: #d4af37; color: #111; }
+
         /* --- Universal Footer Panel --- */
         .footer-panel {
             background: linear-gradient(135deg, #111, #1a1a1a);
@@ -727,23 +787,23 @@
             text-transform: uppercase;
         }
 
-        /* --- Social Links Fixing the White Squares --- */
+        /* --- Refined Social Links Overriding Cache --- */
         .social-links {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .social-links a {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
             padding: 12px 25px;
-            background-color: #ffffff; /* White background blends the white square image */
-            color: #8B1E15; /* Red text */
-            border: 2px solid #8B1E15;
+            background-color: #ffffff !important; 
+            color: #8B1E15 !important; 
+            border: 2px solid #8B1E15 !important;
             text-decoration: none;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-weight: bold;
@@ -760,16 +820,14 @@
             width: 26px;
             height: 26px;
             object-fit: contain;
-            mix-blend-mode: multiply; /* Erases any lingering white background from the image against the button */
+            mix-blend-mode: multiply !important; /* Forces the white square to vanish against the white button */
             transition: transform 0.3s ease;
         }
 
         .social-links a:hover {
-            background-color: #d4af37;
-            color: #111;
-            border-color: #d4af37;
+            background-color: #f5f5f5 !important;
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
 
         .social-links a:hover img {
@@ -816,12 +874,13 @@
         }
 
         @media (max-width: 768px) {
-            nav { padding: 10px 15px; flex-wrap: wrap; justify-content: center; gap: 8px; }
+            /* Compact Nav / Solid Background on Mobile */
+            nav { padding: 10px 15px; flex-wrap: wrap; justify-content: center; gap: 8px; background-color: rgba(255, 255, 255, 0.98); border-bottom: 2px solid #8B1E15; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+            nav a { color: #555 !important; text-shadow: none !important; font-size: 11px; letter-spacing: 1px; padding: 5px; }
+            
             .logo-container { margin-bottom: 5px; }
-            .logo-container img { height: 60px; }
-            nav.solid-bg .logo-container img { height: 50px; }
+            .logo-container img { height: 50px !important; filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.1)) !important; }
             .nav-links { gap: 8px; justify-content: center; flex-wrap: wrap; width: 100%; }
-            nav a { font-size: 11px; letter-spacing: 1px; padding: 5px; }
             
             .hero-section { padding-top: 140px; padding-left: 20px; padding-right: 20px; } 
             .hero-section h1 { font-size: 2.2rem; }
@@ -831,7 +890,13 @@
             #slide-2 .slide-content, #slide-3 .slide-content, #slide-4 .slide-content, #slide-5 .slide-content { padding: 150px 15px 30px 15px; }
             
             .hakkimizda-content { gap: 40px; }
-            .kat-plani-box h2 { font-size: 2rem; margin-bottom: 15px;}
+            
+            /* Mobile-Specific Kat Planı Adjustment */
+            #slide-4 .slide-content { padding-left: 0; padding-right: 0; padding-bottom: 0; }
+            .kat-plani-box { max-width: 100vw; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+            .kat-plani-box h2 { font-size: 2rem; margin-bottom: 10px; margin-top: -30px;}
+            .kat-plani-box img { width: 100vw; max-height: 85vh; border-radius: 0; padding: 0; border: none; }
+            
             .message-container { padding: 25px 15px; }
             .message-text h2 { font-size: 2rem; }
             .lightbox-close { top: 15px; right: 20px; font-size: 3rem; }
@@ -954,7 +1019,7 @@
                 <div class="slide-content">
                     <div class="form-container">
                         <h2>Randevu Al</h2>
-                        <form action="mailto:gokberk.kyc@hotmail.com" method="post" enctype="text/plain">
+                        <form id="randevuForm" action="mailto:gokberk.kyc@gmail.com" method="post" enctype="text/plain">
                             <div class="form-group">
                                 <label for="hizmet">Hizmet Seçiniz:</label>
                                 <select id="hizmet" name="Hizmet_Turu">
@@ -987,6 +1052,14 @@
         </div>
     </div>
 
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Talebiniz Alınmıştır!</h3>
+            <p>En kısa sürede sizinle iletişime geçeceğiz.</p>
+            <button class="modal-close-btn" onclick="closeModal()">Kapat</button>
+        </div>
+    </div>
+
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close" onclick="closeLightbox()">×</span>
         <img id="lightbox-img" src="">
@@ -997,6 +1070,7 @@
         const buttons = document.querySelectorAll('.nav-btn');
         const slider = document.getElementById('slider');
         const nav = document.getElementById('main-nav');
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
         buttons.forEach(button => {
             button.addEventListener('click', () => {
@@ -1004,31 +1078,27 @@
                 const targetSlideId = `slide-${parseInt(index) + 1}`;
                 const targetSlide = document.getElementById(targetSlideId);
 
-                // If user clicks the button for the page they are already on, smooth scroll back to top
                 if(button.classList.contains('active')) {
                     targetSlide.scrollTo({ top: 0, behavior: 'smooth' });
                     return; 
                 }
 
-                // Normal navigation slide behavior
                 buttons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
                 
-                // Immediately slide to the new page
                 slider.style.transform = `translateX(-${index * 100}vw)`;
 
-                if(index == 0) {
-                    nav.classList.remove('solid-bg');
-                } else {
-                    nav.classList.add('solid-bg');
+                if (!isMobile) {
+                    if(index == 0) {
+                        nav.classList.remove('solid-bg');
+                    } else {
+                        nav.classList.add('solid-bg');
+                    }
                 }
 
-                // Wait for the slide transition to finish (900ms), THEN reset scroll of hidden slides
-                // This prevents the visual jump while moving sideways.
                 setTimeout(() => {
                     document.querySelectorAll('.slide').forEach((slide, i) => {
                         if (i != index) {
-                            // Turn off smooth behavior briefly to snap to top instantly in background
                             slide.style.scrollBehavior = 'auto';
                             slide.scrollTo(0, 0);
                             slide.style.scrollBehavior = 'smooth';
@@ -1038,18 +1108,30 @@
             });
         });
 
-        // 2. Lightbox Mechanics for Photo Gallery
+        // 2. Lightbox Mechanics WITH Mobile Hardware Back Button Support
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
         function openLightbox(src) {
             lightboxImg.src = src;
             lightbox.classList.add('active');
+            // Push state so the back button knows we are in the lightbox
+            window.history.pushState({ lightbox: 'open' }, null, null);
         }
 
+        // Listens for the physical hardware back button (or swipe back on iOS/Android)
+        window.addEventListener('popstate', (e) => {
+            if (lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                setTimeout(() => { lightboxImg.src = ""; }, 300);
+            }
+        });
+
         function closeLightbox() {
-            lightbox.classList.remove('active');
-            setTimeout(() => { lightboxImg.src = ""; }, 300);
+            // Trigger the back action naturally, which fires popstate and closes the UI
+            if(lightbox.classList.contains('active')) {
+                window.history.back();
+            }
         }
 
         lightbox.addEventListener('click', (e) => {
@@ -1067,7 +1149,7 @@
                 <p><strong>Telefon:</strong> (0222) 231 55 00</p>
                 
                 <div class="ziyaret-info">
-                    <h4>ZİYARET SAATLERİ</h4>
+                    <h4>ZİYARET SAATLERİ ve ÜCRETLERİ</h4>
                     <p style="font-family: 'Helvetica Neue', sans-serif; margin-bottom: 5px; font-size: 1.05rem;"><strong>Açılış:</strong> 09:00  |  <strong>Kapanış:</strong> 18:00 (Pazartesi günleri kapalıdır.)</p>
                     <p style="font-family: 'Helvetica Neue', sans-serif; margin-bottom: 5px; font-size: 1.05rem;"><strong>Resmi Tatiller:</strong> Her dini bayramda birinci gün ve 1 Ocak'ta müze kapalıdır.</p>
                     <p style="font-family: 'Helvetica Neue', sans-serif; font-size: 0.9rem; margin-top: 12px; color: #bbb;"><em>Not:</em> 15 kişi ve üzeri grup ziyaretlerinde telefon ile rezervasyon alınması uygundur.</p>
@@ -1092,12 +1174,11 @@
         </footer>
         `;
 
-        // Select all slides EXCEPT #slide-4 (Kat Planı) to inject the footer
         document.querySelectorAll('.slide:not(#slide-4)').forEach(slide => {
             slide.insertAdjacentHTML('beforeend', footerHTML);
         });
 
-        // 4. Date Picker Logic for "Randevu Al"
+        // 4. Date Picker & Form Submission Logic
         const dateInput = document.getElementById('randevu-tarihi');
         if (dateInput) {
             const today = new Date();
@@ -1113,6 +1194,20 @@
             
             dateInput.min = formatDate(today);
             dateInput.max = formatDate(nextMonth);
+        }
+
+        const form = document.getElementById('randevuForm');
+        const modal = document.getElementById('successModal');
+
+        form.addEventListener('submit', function(e) {
+            setTimeout(() => {
+                modal.classList.add('active');
+                form.reset(); 
+            }, 500); 
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
         }
     </script>
 </body>
