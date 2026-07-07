@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eskişehir Ticaret ve Sanayi Müzesi</title>
+    <style>
+        /* Base Reset & Typography */
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif; 
+            overflow: hidden; 
+            background-color: #f8f5f0; 
+            color: #333;
+        }
+
+        /* Clean, Sticky Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 100;
+            background-color: transparent; 
+            border-bottom: none; 
+            transition: background-color 0.3s ease, border-bottom 0.3s ease;
+        }
+
+        nav.solid-bg {
+            background-color: rgba(255, 255, 255, 0.98);
+            border-bottom: 2px solid #8B1E15;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 90px; 
+            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.6)); 
+            transition: height 0.3s ease, filter 0.3s ease;
+        }
+
+        nav.solid-bg .logo-container img {
+            filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.1)); 
+            height: 80px; 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff; 
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            position: relative;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8); 
+        }
+        
+        nav.solid-bg a {
+            color: #555;
+            text-shadow: none;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #8B1E15;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover, nav a.active {
+            color: #d4af37;
+        }
+        
+        nav.solid-bg a:hover, nav.solid-bg a.active {
+            color: #8B1E15;
+        }
+
+        /* The Slider Architecture */
+        .slider-container {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            width: 500vw; 
+            height: 100%;
+            transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        /* Individual Slides */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            box-sizing: border-box;
+            overflow-y: auto; 
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-content {
+            flex: 1 0 auto; 
+        }
+
+        /* --- Slide 1: Anasayfa --- */
+        #slide-1 { background-color: #f8f5f0; }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('opening.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 40px 40px 40px; 
+            position: relative;
+        }
+        
+        .hero-section h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+        }
+        
+        .hero-section p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        /* Scroll Down Indicator */
+        .scroll-down-btn {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .scroll-down-btn:hover {
+            opacity: 1;
+            color: #d4af37;
+        }
+
+        .scroll-down-btn span {
+            font-size: 1.8rem;
+            margin-top: 5px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Exterior Images Section */
+        .exterior-gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 80px 40px;
+            background-color: #f8f5f0;
+        }
+
+        .exterior-gallery img {
+            width: 30%; 
+            min-width: 250px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            object-fit: cover;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exterior-gallery img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        /* --- Slide 2: Foto Galeri --- */
+        #slide-2 { background-color: #fcfcfc; }
+
+        #slide-2 .slide-content {
+            padding: 140px 50px 80px 50px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-wrapper {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .gallery-title {
+            text-align: center;
+            color: #8B1E15;
+            font-family: 'Georgia', serif;
+            font-size: 2.8rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-bottom: 15px;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .scroll-hint {
+            text-align: right;
+            color: #888;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            padding-right: 10px;
+        }
+
+        .scroll-hint span {
+            display: inline-block;
+            animation: slideRight 1.5s infinite;
+        }
+
+        @keyframes slideRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(8px); }
+        }
+
+        .gallery-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 10px 10px 30px 10px;
+            scroll-behavior: smooth;
+        }
+
+        /* Styled Horizontal Scrollbar */
+        .gallery-scroll-container::-webkit-scrollbar {
+            height: 10px;
+        }
+        .gallery-scroll-container::-webkit-scrollbar-track {
+            background: #eee; 
+            border-radius: 5px;
+        }
+        .gallery-scroll-container::-webkit-scrollbar-thumb {
+            background: #8B1E15; 
+            border-radius: 5px;
+        }
+        .gallery-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #d4af37; 
+        }
+
+        .gallery-item {
+            flex: 0 0 auto;
+            width: 750px; 
+            max-width: 85vw;
+            aspect-ratio: 16/9;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+            filter: grayscale(15%) brightness(0.9);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%) brightness(1.05);
+        }
+
+        /* Elegant Hover Button */
+        .gallery-item::before {
+            content: 'Görseli İncele';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(139, 30, 21, 0.9);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Lightbox styling */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.92);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 6px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            object-fit: contain;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox.active img {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 4rem;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 300;
+        }
+
+        .lightbox-close:hover { color: #d4af37; }
+
+        /* --- Slide 3: Hakkımızda --- */
+        #slide-3 { background-color: #e5d9c5; }
+        
+        #slide-3 .slide-content {
+            padding: 140px 50px 80px 50px;
+        }
+
+        .hakkimizda-content {
+            max-width: 1400px; 
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        /* --- Premium Başkan Mesajı --- */
+        .message-container {
+            display: flex;
+            gap: 60px;
+            align-items: flex-start;
+            background: #ffffff; 
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+            max-width: 1200px; 
+            margin: 0 auto;
+            border-top: 6px solid #8B1E15;
+            position: relative;
+        }
+
+        .message-container::before {
+            content: "“";
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            font-size: 8rem;
+            color: rgba(212, 175, 55, 0.15); 
+            font-family: 'Georgia', serif;
+            line-height: 1;
+        }
+
+        .president-profile {
+            flex: 0 0 350px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .president-profile img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border: 8px solid #f8f5f0;
+        }
+
+        .president-profile h3 {
+            margin-top: 20px;
+            color: #8B1E15;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        
+        .president-profile p {
+            color: #888;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .message-text {
+            flex: 1;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #444;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .message-text h2 {
+            color: #111;
+            font-size: 2.8rem;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-family: 'Georgia', serif;
+            border-bottom: 2px solid #e5d9c5;
+            padding-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .message-text p { margin-bottom: 20px; }
+
+        .message-text p:first-of-type {
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            color: #8B1E15;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2.5rem;
+            color: #8B1E15;
+            margin-top: 30px;
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+
+        .camouflaged-img {
+            width: 100%; 
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border: none;
+            box-shadow: none; 
+            mix-blend-mode: multiply; 
+        }
+
+        /* --- Slide 4: Kat Planı --- */
+        #slide-4 {
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('background3.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #slide-4 .slide-content {
+            padding: 160px 20px 40px 20px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .kat-plani-box {
+            background-color: transparent; 
+            padding: 0;
+            box-shadow: none;
+            text-align: center;
+            width: 100%;
+            max-width: 98vw; 
+        }
+
+        .kat-plani-box h2 {
+            color: #fff;
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.9);
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            margin-top: 0;
+            letter-spacing: 2px;
+        }
+
+        .kat-plani-box img {
+            width: 100%;
+            max-height: 75vh; 
+            object-fit: contain;
+            background-color: rgba(255, 255, 255, 0.95); 
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            padding: 10px;
+        }
+
+        /* --- Slide 5: Randevu Al --- */
+        #slide-5 {
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('background1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #slide-5 .slide-content {
+            padding: 140px 50px 80px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 50px 60px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border-top: 5px solid #d4af37;
+        }
+
+        .form-container h2 {
+            color: #8B1E15;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .form-group { margin-bottom: 25px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #444;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.05rem;
+            background-color: #fff;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #8B1E15;
+        }
+
+        .submit-btn {
+            background-color: #8B1E15;
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            font-size: 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #d4af37;
+            color: #1a1a1a;
+            transform: translateY(-2px);
+        }
+
+        /* --- Universal Footer Panel --- */
+        .footer-panel {
+            background: linear-gradient(135deg, #111, #1a1a1a);
+            color: #f4f4f4;
+            padding: 60px 5%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-top: 5px solid #8B1E15;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0; 
+        }
+
+        .footer-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 30, 21, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .footer-left {
+            flex: 1;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 2;
+        }
+
+        .footer-left img.logo {
+            max-width: 220px;
+            margin-bottom: 5px;
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.5));
+        }
+
+        .footer-left p {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 0;
+            color: #ddd;
+        }
+        
+        .footer-left p strong { color: #d4af37; }
+
+        .ziyaret-info {
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.01));
+            padding: 25px;
+            border-left: 4px solid #d4af37;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .ziyaret-info:hover {
+            transform: translateX(8px);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+        }
+
+        .ziyaret-info h4 {
+            margin: 0 0 15px 0;
+            color: #d4af37;
+            font-size: 1.2rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* --- Social Links Fixing the White Squares --- */
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 12px 25px;
+            background-color: #ffffff; /* White background blends the white square image */
+            color: #8B1E15; /* Red text */
+            border: 2px solid #8B1E15;
+            text-decoration: none;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            border-radius: 30px; 
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .social-links a img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            mix-blend-mode: multiply; /* Erases any lingering white background from the image against the button */
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #d4af37;
+            color: #111;
+            border-color: #d4af37;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .social-links a:hover img {
+            transform: scale(1.1);
+        }
+
+        .footer-right {
+            flex: 1.2;
+            min-width: 320px;
+            z-index: 2;
+        }
+
+        .footer-right iframe {
+            width: 100%;
+            height: 320px;
+            border-radius: 12px;
+            border: 2px solid #333;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            transition: border-color 0.4s ease;
+        }
+
+        .footer-right iframe:hover {
+            border-color: #d4af37;
+        }
+
+        .map-directions {
+            margin-top: 20px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 0.95rem;
+            color: #bbb;
+            font-style: italic;
+            line-height: 1.5;
+            padding-left: 15px;
+            border-left: 2px solid #8B1E15;
+        }
+
+        /* --- Mobile Adjustments --- */
+        @media (max-width: 992px) {
+            .message-container { flex-direction: column; align-items: center; padding: 40px; }
+            .president-profile { flex: 0 0 auto; max-width: 350px; }
+            .exterior-gallery img { width: 45%; }
+            .message-container::before { display: none; }
+            .gallery-item { width: 85vw; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 10px 15px; flex-wrap: wrap; justify-content: center; gap: 8px; }
+            .logo-container { margin-bottom: 5px; }
+            .logo-container img { height: 60px; }
+            nav.solid-bg .logo-container img { height: 50px; }
+            .nav-links { gap: 8px; justify-content: center; flex-wrap: wrap; width: 100%; }
+            nav a { font-size: 11px; letter-spacing: 1px; padding: 5px; }
+            
+            .hero-section { padding-top: 140px; padding-left: 20px; padding-right: 20px; } 
+            .hero-section h1 { font-size: 2.2rem; }
+            .hero-section p { font-size: 1rem; margin-bottom: 60px; }
+            .exterior-gallery img { width: 100%; }
+            
+            #slide-2 .slide-content, #slide-3 .slide-content, #slide-4 .slide-content, #slide-5 .slide-content { padding: 150px 15px 30px 15px; }
+            
+            .hakkimizda-content { gap: 40px; }
+            .kat-plani-box h2 { font-size: 2rem; margin-bottom: 15px;}
+            .message-container { padding: 25px 15px; }
+            .message-text h2 { font-size: 2rem; }
+            .lightbox-close { top: 15px; right: 20px; font-size: 3rem; }
+            
+            .footer-panel { padding: 40px 20px; text-align: center; flex-direction: column; align-items: center; }
+            .footer-left { align-items: center; width: 100%; min-width: 100%; }
+            .footer-right { width: 100%; min-width: 100%; }
+            .ziyaret-info { border-left: none; border-top: 3px solid #d4af37; border-radius: 0 0 8px 8px; padding: 20px 10px; }
+            
+            .social-links { flex-direction: column; width: 100%; }
+            .social-links a { width: 100%; justify-content: center; }
+            
+            .footer-right iframe { height: 250px; }
+            .map-directions { border-left: none; padding-left: 0; text-align: center; border-top: 2px solid #8B1E15; padding-top: 15px;}
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div class="logo-container">
+            <img src="logobuyuk.png" alt="Eto Müze Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCI+PGNpcmNsZSBjeD0iNDUiIGN5PSI0NSIgcj0iNDUiIGZpbGw9IiM4QjFFMTUiLz48dGV4dCB4PSI0NSIgeT0iNTUiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVUTzwvdGV4dD48L3N2Zz4='">
+        </div>
+        <div class="nav-links">
+            <a class="nav-btn active" data-index="0">Anasayfa</a>
+            <a class="nav-btn" data-index="1">Foto Galeri</a>
+            <a class="nav-btn" data-index="2">Hakkımızda</a>
+            <a class="nav-btn" data-index="3">Kat Planı</a>
+            <a class="nav-btn" data-index="4">Randevu Al</a>
+        </div>
+    </nav>
+
+    <div class="slider-container">
+        <div class="slider-wrapper" id="slider">
+            
+            <div class="slide" id="slide-1">
+                <div class="slide-content">
+                    <div class="hero-section">
+                        <h1>Eskişehir Ticaret ve Sanayi Müzesi</h1>
+                        <p>Tarihi Odunpazarı bölgesinde, şehrin ticari geçmişine ışık tutan bir yolculuğa davetlisiniz.</p>
+                        
+                        <a class="scroll-down-btn" onclick="document.getElementById('slide-1').scrollTo({ top: document.getElementById('slide-1').scrollHeight, behavior: 'smooth' });">
+                            Ulaşım Bilgileri İçin Tıkla <span>↓</span>
+                        </a>
+                    </div>
+
+                    <div class="exterior-gallery">
+                        <img src="etomuze.jpg" alt="Müze Dış Görünüm 1" onerror="this.style.display='none'">
+                        <img src="etomuze2.jpg" alt="Müze Dış Görünüm 2" onerror="this.style.display='none'">
+                        <img src="etomuze1.jpg" alt="Müze Mimari Görünüm" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide" id="slide-2">
+                <div class="slide-content">
+                    <div class="gallery-wrapper">
+                        <h2 class="gallery-title">Foto Galeri</h2>
+                        <p class="scroll-hint">Daha fazla görsel için sağa kaydırın <span>→</span></p>
+                        <div class="gallery-scroll-container">
+                            <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                                <img src="background1.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
+                            </div>
+                            <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                                <img src="background2.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
+                            </div>
+                            <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                                <img src="opening.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
+                            </div>
+                            <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                                <img src="background3.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
+                            </div>
+                            <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                                <img src="background4.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide" id="slide-3">
+                <div class="slide-content">
+                    <div class="hakkimizda-content">
+                        
+                        <div class="message-container">
+                            <div class="president-profile">
+                                <img src="baskan.jpg" alt="Metin Güler" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iNDAwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjE1MCIgeT0iMjAwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CYcWfa2FuIEZvdG/En3JhZsSxPC90ZXh0Pjwvc3ZnPg=='">
+                                <h3>Metin GÜLER</h3>
+                                <p>Eskişehir Ticaret Odası Başkanı</p>
+                            </div>
+                            <div class="message-text">
+                                <h2>Başkan'ın Mesajı</h2>
+                                <p>Merhaba…</p>
+                                <p>Eskişehir Ticaret Odası olarak camiamıza yakışan bir eseri daha şehrimize kazandırmanın gururu içerisindeyiz. Eskişehir’in ticaret ve sanayi tarihine tanıklık etmesi hayaliyle başladığımız müzemizde çok uzun ve zorlu bir yoldan geçtik.</p>
+                                <p>Eskişehir Ticaret ve Sanayi Müzesi, tarihi konaklarıyla ülkece tanınan, geleneksel dokusunu halen koruyan Odunpazarı Bölgesi’nde, 3 katlı, tescilli bir konakta hayat buluyor. Umuyorum ki bulunduğu konum ve yüklendiği misyon ile müzemiz, şehrin markalaşmasında ve turizm gelirlerinin artmasında payına düşen katkıyı sağlayacaktır.</p>
+                                <p>Şehrin ticari tarihine ışık tutacak müzemizde, bu topraklarda varlık göstermiş /gösteren köklü firmalara ait nesnelerin ve belgelerin yanında, bu topraklarda yaşamış, sahip olduğu ticari zekâyla ‘tuttuğu altın olan’ namına kavuşmuş Frig Kralı Midas’ı, lületaşının ilk ustalarından olan Ali Osman Denizköpüğü’nü, mizah ustası Nasreddin Hoca’yı, Friglerin kült anıtlarından biri olan Yazılıkaya’yı, şehrimizde üretilen ilk lokomotif Karakurt’u, ilk yerli üretim otomobil olan, filmlere konu olmuş Devrim’i, ilk Osmanlı sikkesini ve bu topraklarda basılmış şehir sikkelerini görebilirsiniz.</p>
+                                <p>Eskişehir’in ekonomik geçmişini günümüze taşıma hayaliyle bizlere destek olan, ata yadigârlarını ve çok kıymet verdikleri eserleri müzemize bağışlayan tüm üyelerimize, esnaf, tüccar ve sanayicilerimize içtenlikle teşekkür ediyorum.</p>
+                                <p>Başka güzellikler vesilesiyle görüşmek temennisiyle…</p>
+                                <p>Saygı ve sevgilerimle…</p>
+                                <p class="signature">Metin Güler</p>
+                            </div>
+                        </div>
+
+                        <img src="misyon.jpg" alt="Misyonumuz" class="camouflaged-img" onerror="this.style.display='none'">
+                        <img src="tarihce.jpg" alt="Tarihçemiz" class="camouflaged-img" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide" id="slide-4">
+                <div class="slide-content">
+                    <div class="kat-plani-box">
+                        <h2>Müze Kat Planı</h2>
+                        <img src="katplani.png" alt="Kat Planı" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5LYXQgUGxhbsSxIEdvcnNlbGk8L3RleHQ+PC9zdmc+'">
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide" id="slide-5">
+                <div class="slide-content">
+                    <div class="form-container">
+                        <h2>Randevu Al</h2>
+                        <form action="mailto:gokberk.kyc@hotmail.com" method="post" enctype="text/plain">
+                            <div class="form-group">
+                                <label for="hizmet">Hizmet Seçiniz:</label>
+                                <select id="hizmet" name="Hizmet_Turu">
+                                    <option value="Etkinlik">Etkinlik</option>
+                                    <option value="Grup Randevusu">Grup Randevusu</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="randevu-tarihi">Randevu Tarihi:</label>
+                                <input type="date" id="randevu-tarihi" name="Tarih" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="isim">Başvuran'ın Adı - Soyadı:</label>
+                                <input type="text" id="isim" name="Isim_Soyisim" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="telefon">Telefon Numarası:</label>
+                                <input type="tel" id="telefon" name="Telefon" required>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">Gönder</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <img id="lightbox-img" src="">
+    </div>
+
+    <script>
+        // 1. Slider & Smooth Background Scroll Reset Mechanics
+        const buttons = document.querySelectorAll('.nav-btn');
+        const slider = document.getElementById('slider');
+        const nav = document.getElementById('main-nav');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const index = button.getAttribute('data-index');
+                const targetSlideId = `slide-${parseInt(index) + 1}`;
+                const targetSlide = document.getElementById(targetSlideId);
+
+                // If user clicks the button for the page they are already on, smooth scroll back to top
+                if(button.classList.contains('active')) {
+                    targetSlide.scrollTo({ top: 0, behavior: 'smooth' });
+                    return; 
+                }
+
+                // Normal navigation slide behavior
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Immediately slide to the new page
+                slider.style.transform = `translateX(-${index * 100}vw)`;
+
+                if(index == 0) {
+                    nav.classList.remove('solid-bg');
+                } else {
+                    nav.classList.add('solid-bg');
+                }
+
+                // Wait for the slide transition to finish (900ms), THEN reset scroll of hidden slides
+                // This prevents the visual jump while moving sideways.
+                setTimeout(() => {
+                    document.querySelectorAll('.slide').forEach((slide, i) => {
+                        if (i != index) {
+                            // Turn off smooth behavior briefly to snap to top instantly in background
+                            slide.style.scrollBehavior = 'auto';
+                            slide.scrollTo(0, 0);
+                            slide.style.scrollBehavior = 'smooth';
+                        }
+                    });
+                }, 900);
+            });
+        });
+
+        // 2. Lightbox Mechanics for Photo Gallery
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            setTimeout(() => { lightboxImg.src = ""; }, 300);
+        }
+
+        lightbox.addEventListener('click', (e) => {
+            if(e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // 3. Dynamic Universal Footer Injection (Skipping Slide 4 -> Kat Planı)
+        const footerHTML = `
+        <footer class="footer-panel">
+            <div class="footer-left">
+                <img src="logobuyuk.png" alt="Eto Müze Logo" class="logo" onerror="this.style.display='none'">
+                <p><strong>Adres:</strong> Paşa, Işıklar Sk. No:7, 26030 Odunpazarı/Eskişehir</p>
+                <p><strong>Telefon:</strong> (0222) 231 55 00</p>
+                
+                <div class="ziyaret-info">
+                    <h4>ZİYARET SAATLERİ</h4>
+                    <p style="font-family: 'Helvetica Neue', sans-serif; margin-bottom: 5px; font-size: 1.05rem;"><strong>Açılış:</strong> 09:00  |  <strong>Kapanış:</strong> 18:00 (Pazartesi günleri kapalıdır.)</p>
+                    <p style="font-family: 'Helvetica Neue', sans-serif; margin-bottom: 5px; font-size: 1.05rem;"><strong>Resmi Tatiller:</strong> Her dini bayramda birinci gün ve 1 Ocak'ta müze kapalıdır.</p>
+                    <p style="font-family: 'Helvetica Neue', sans-serif; font-size: 0.9rem; margin-top: 12px; color: #bbb;"><em>Not:</em> 15 kişi ve üzeri grup ziyaretlerinde telefon ile rezervasyon alınması uygundur.</p>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://www.instagram.com/etomuze/" target="_blank" title="Instagram">
+                        <img src="insta.png" alt="Instagram" onerror="this.style.display='none'">
+                        Instagram Adresimiz
+                    </a>
+                    <a href="https://www.facebook.com/etomuze" target="_blank" title="Facebook">
+                        <img src="facebook.png" alt="Facebook" onerror="this.style.display='none'">
+                        Facebook Adresimiz
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-right">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3066.878838684993!2d30.520733712790246!3d39.764828671433335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cc161c886391e1%3A0xda8686c9842c9a71!2sETO%20M%C3%9CZE%20-%20Eski%C5%9Fehir%20Ticaret%20ve%20Sanayi%20M%C3%BCzesi!5e0!3m2!1str!2str!4v1783454708840!5m2!1str!2str" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                <p class="map-directions">Balmumu Müzesi önünden Odunpazarı istikametine devam edildiğinde ilk sağ sokak içerisinde sol köşe binadır.</p>
+            </div>
+        </footer>
+        `;
+
+        // Select all slides EXCEPT #slide-4 (Kat Planı) to inject the footer
+        document.querySelectorAll('.slide:not(#slide-4)').forEach(slide => {
+            slide.insertAdjacentHTML('beforeend', footerHTML);
+        });
+
+        // 4. Date Picker Logic for "Randevu Al"
+        const dateInput = document.getElementById('randevu-tarihi');
+        if (dateInput) {
+            const today = new Date();
+            const nextMonth = new Date();
+            nextMonth.setMonth(today.getMonth() + 1);
+
+            const formatDate = (date) => {
+                const y = date.getFullYear();
+                const m = String(date.getMonth() + 1).padStart(2, '0');
+                const d = String(date.getDate()).padStart(2, '0');
+                return `${y}-${m}-${d}`;
+            };
+            
+            dateInput.min = formatDate(today);
+            dateInput.max = formatDate(nextMonth);
+        }
+    </script>
+</body>
+</html>
