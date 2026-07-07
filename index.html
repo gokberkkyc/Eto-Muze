@@ -287,6 +287,40 @@
             margin-right: auto;
         }
 
+        .scroll-hint-wrapper {
+            text-align: center;
+            width: 100%;
+            margin-top: 20px; 
+            margin-bottom: 40px; 
+        }
+
+        .scroll-hint {
+            text-align: center;
+            color: #555;
+            background-color: rgba(139, 30, 21, 0.05);
+            border: 1px solid rgba(139, 30, 21, 0.1);
+            border-radius: 30px;
+            padding: 10px 25px;
+            display: inline-block;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.05rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: fit-content;
+        }
+
+        .scroll-hint span {
+            display: inline-block;
+            animation: slideRight 1.5s infinite;
+            margin-left: 8px;
+            color: #8B1E15;
+        }
+
+        @keyframes slideRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
         .gallery-scroll-container {
             display: flex;
             overflow-x: auto;
@@ -380,40 +414,6 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        .scroll-hint-wrapper {
-            text-align: center;
-            width: 100%;
-            margin-top: 10px; 
-            margin-bottom: 40px; 
-        }
-
-        .scroll-hint {
-            text-align: center;
-            color: #555;
-            background-color: rgba(139, 30, 21, 0.05);
-            border: 1px solid rgba(139, 30, 21, 0.1);
-            border-radius: 30px;
-            padding: 10px 25px;
-            display: inline-block;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 1.05rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            width: fit-content;
-        }
-
-        .scroll-hint span {
-            display: inline-block;
-            animation: slideRight 1.5s infinite;
-            margin-left: 8px;
-            color: #8B1E15;
-        }
-
-        @keyframes slideRight {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-        }
-
         /* Lightbox styling */
         .lightbox {
             position: fixed;
@@ -440,10 +440,12 @@
             max-width: 90vw;
             max-height: 90vh;
             border-radius: 6px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.9);
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
             object-fit: contain;
             transform: scale(0.9);
             transition: transform 0.3s ease;
+            background-color: #ffffff; /* Preserves white background for transparent PNGs */
+            padding: 10px;
         }
 
         .lightbox.active img {
@@ -822,6 +824,7 @@
             height: 26px;
             object-fit: contain;
             transition: transform 0.3s ease;
+            mix-blend-mode: multiply;
         }
 
         .social-links a:hover {
@@ -934,7 +937,7 @@
         }
 
         @media (max-width: 768px) {
-            /* Compact Nav / Solid Background on Mobile - UPDATED TO DARK RED FOR VISIBILITY */
+            /* Compact Nav / Solid Background on Mobile */
             nav { padding: 10px 15px; flex-wrap: wrap; justify-content: center; gap: 8px; background-color: rgba(139, 30, 21, 0.98); border-bottom: 2px solid #d4af37; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
             nav a { color: #fff !important; text-shadow: none !important; font-size: 11px; letter-spacing: 1px; padding: 5px; }
             nav a:hover, nav a.active { color: #d4af37 !important; }
@@ -953,7 +956,6 @@
             
             #slide-2 .slide-content, #slide-3 .slide-content, #slide-4 .slide-content, #slide-5 .slide-content { padding: 150px 15px 30px 15px; }
             
-            /* Remove the text inside hover states for gallery on mobile */
             .gallery-item::after { display: none !important; }
             
             .hakkimizda-content { gap: 40px; }
@@ -962,8 +964,7 @@
             #slide-4 .slide-content { padding-left: 0; padding-right: 0; padding-bottom: 0; display: flex; flex-direction: column; justify-content: center;}
             .kat-plani-box { max-width: 100vw; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
             .kat-plani-box h2 { font-size: 2.2rem; margin-bottom: 10px; margin-top: -30px;}
-            /* Force the image to cover the screen entirely horizontally and made clickable */
-            .kat-plani-box img { width: 100vw; max-height: 70vh; border-radius: 0; padding: 0; border: none; cursor: pointer; }
+            .kat-plani-box img { width: 100vw; max-height: 85vh; border-radius: 0; padding: 0; border: none; cursor: pointer; }
             
             .message-container { padding: 25px 15px; }
             .message-text h2 { font-size: 2rem; }
@@ -1026,6 +1027,9 @@
                 <div class="slide-content">
                     <div class="gallery-wrapper">
                         <h2 class="gallery-title">Foto Galeri</h2>
+                        <div class="scroll-hint-wrapper">
+                            <p class="scroll-hint">Daha fazla görsel için sağa kaydırın <span>→</span></p>
+                        </div>
                         <div class="gallery-scroll-container">
                             <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
                                 <img src="background1.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
@@ -1043,9 +1047,6 @@
                                 <img src="background4.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
                             </div>
                         </div>
-                        <div class="scroll-hint-wrapper">
-                            <p class="scroll-hint">Daha fazla görsel için sağa kaydırın <span>→</span></p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1061,7 +1062,7 @@
                                 <p>Eskişehir Ticaret Odası Başkanı</p>
                             </div>
                             <div class="message-text">
-                                <h2>Başkan'ın Mesajı</h2>
+                                <h2>Başkanımızın Mesajı</h2>
                                 <p>Merhaba…</p>
                                 <p>Eskişehir Ticaret Odası olarak camiamıza yakışan bir eseri daha şehrimize kazandırmanın gururu içerisindeyiz. Eskişehir’in ticaret ve sanayi tarihine tanıklık etmesi hayaliyle başladığımız müzemizde çok uzun ve zorlu bir yoldan geçtik.</p>
                                 <p>Eskişehir Ticaret ve Sanayi Müzesi, tarihi konaklarıyla ülkece tanınan, geleneksel dokusunu halen koruyan Odunpazarı Bölgesi’nde, 3 katlı, tescilli bir konakta hayat buluyor. Umuyorum ki bulunduğu konum ve yüklendiği misyon ile müzemiz, şehrin markalaşmasında ve turizm gelirlerinin artmasında payına düşen katkıyı sağlayacaktır.</p>
