@@ -299,6 +299,7 @@
             scroll-behavior: smooth;
         }
 
+        /* Styled Horizontal Scrollbar */
         .gallery-scroll-container::-webkit-scrollbar {
             height: 10px;
         }
@@ -339,6 +340,7 @@
             filter: grayscale(0%) brightness(1.05);
         }
 
+        /* Elegant Hover Button */
         .gallery-item::before {
             content: 'Görseli İncele';
             position: absolute;
@@ -580,6 +582,7 @@
             border-radius: 8px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             padding: 10px;
+            cursor: pointer;
         }
 
         /* --- Slide 5: Randevu Al --- */
@@ -739,12 +742,11 @@
             text-transform: uppercase;
         }
 
-        /* --- REVERTED SOCIAL LINKS (Original colors maintained) --- */
         .social-links {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .social-links a {
@@ -773,7 +775,7 @@
             height: 26px;
             object-fit: contain;
             transition: transform 0.3s ease;
-            /* Filter removed completely so images show naturally */
+            /* Filter removed so colors show naturally */
         }
 
         .social-links a:hover {
@@ -1041,7 +1043,7 @@
                 <div class="slide-content">
                     <div class="form-container">
                         <h2>Randevu Al</h2>
-                        <form id="randevuForm" action="https://formspree.io/f/gokberk.kyc@gmail.com" method="POST">
+                        <form id="randevuForm">
                             <div class="form-group">
                                 <label for="hizmet">Hizmet Seçiniz:</label>
                                 <select id="hizmet" name="Hizmet_Turu">
@@ -1197,7 +1199,7 @@
             slide.insertAdjacentHTML('beforeend', footerHTML);
         });
 
-        // 4. Form Logic with Silent AJAX Submission
+        // 4. Dummy Form Submission Logic (Perfect for Pitching)
         const dateInput = document.getElementById('randevu-tarihi');
         if (dateInput) {
             const today = new Date();
@@ -1218,29 +1220,12 @@
         const form = document.getElementById('randevuForm');
         const modal = document.getElementById('successModal');
 
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Prevents default browser submission behavior
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop page from refreshing or loading new URLs
             
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    modal.classList.add('active');
-                    form.reset(); 
-                } else {
-                    alert("Bir hata oluştu. Lütfen tekrar deneyiniz.");
-                }
-            } catch (error) {
-                alert("Bağlantı hatası. Lütfen internetinizi kontrol edin.");
-            }
+            // Instantly show the success modal (no API or email needed)
+            modal.classList.add('active');
+            form.reset(); 
         });
 
         function closeModal() {
