@@ -206,22 +206,24 @@
             60% { transform: translateY(-5px); }
         }
 
-        /* Exterior Images Section - Refined Frames */
+        /* Exterior Images Section - ONLY 2 IMAGES NOW */
         .exterior-gallery {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 40px; /* Increased gap for better separation */
-            padding: 80px 5%;
+            gap: 60px; /* Increased gap for 2 images */
+            padding: 100px 5%;
             background-color: #f8f5f0;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .exterior-frame {
-            width: 30%; 
-            min-width: 280px;
-            background: #ffffff; /* Classic museum passe-partout (matte) */
+            width: 42%; /* Increased width so two images take up nice space */
+            min-width: 300px;
+            background: #ffffff; 
             padding: 15px; 
-            padding-bottom: 45px; /* Polaroid/Gallery style heavy bottom */
+            padding-bottom: 45px; 
             border-radius: 4px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.12), 0 5px 15px rgba(0,0,0,0.06);
             border: 1px solid #e0e0e0;
@@ -237,7 +239,7 @@
             transform: translateX(-50%);
             width: 40px;
             height: 2px;
-            background-color: #d4af37; /* Elegant gold accent on the frame */
+            background-color: #d4af37; 
             opacity: 0.5;
         }
 
@@ -251,7 +253,8 @@
             height: 100%;
             display: block;
             object-fit: cover;
-            border: 1px solid #ccc; /* Fine inner line separating photo and matte */
+            border: 1px solid #ccc; 
+            aspect-ratio: 4/3; /* Keeps them consistently shaped */
         }
 
         /* --- Slide 2: Foto Galeri --- */
@@ -265,7 +268,7 @@
 
         .gallery-wrapper {
             width: 100%;
-            max-width: 1600px;
+            max-width: 100%; /* Allows full bleed */
             margin: 0 auto;
         }
 
@@ -279,12 +282,108 @@
             padding-bottom: 15px;
             letter-spacing: 1px;
             border-bottom: 2px solid #eee;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gallery-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 40px; 
+            padding: 20px 5% 40px 5%; /* Side padding helps first image align */
+            scroll-behavior: smooth;
+        }
+
+        .gallery-scroll-container::-webkit-scrollbar { height: 10px; }
+        .gallery-scroll-container::-webkit-scrollbar-track { background: #eee; border-radius: 5px; }
+        .gallery-scroll-container::-webkit-scrollbar-thumb { background: #8B1E15; border-radius: 5px; }
+        .gallery-scroll-container::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+
+        /* Premium Elite Gallery Frames - Adjusted Size to show ~2.5 images */
+        .gallery-item {
+            flex: 0 0 auto;
+            width: 40vw; /* This guarantees 2 full images show, and the 3rd peaks in from the right */
+            min-width: 500px; 
+            max-width: 800px;
+            aspect-ratio: 16/9;
+            position: relative;
+            cursor: pointer;
+            
+            background: #0f0f0f; 
+            padding: 25px; 
+            border: 4px solid #c5a059; 
+            border-radius: 4px;
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.25), 
+                inset 0 0 30px rgba(0,0,0,0.9); 
+            
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 35px 60px rgba(0,0,0,0.35),
+                inset 0 0 30px rgba(0,0,0,0.9);
+            border-color: #d4af37;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 2px solid #222; 
+            transition: filter 0.6s ease;
+            filter: grayscale(15%) brightness(0.9);
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%) brightness(1.05);
+        }
+
+        .gallery-item::after {
+            content: 'Görseli İncele';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(139, 30, 21, 0.95);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            border: 1px solid #d4af37;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .scroll-hint-wrapper {
             text-align: center;
             width: 100%;
-            margin-top: 20px; 
+            margin-top: 10px; 
             margin-bottom: 40px; 
         }
 
@@ -315,112 +414,6 @@
             50% { transform: translateX(10px); }
         }
 
-        .gallery-scroll-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 40px; /* Wider gap for premium display */
-            padding: 20px 20px 40px 20px;
-            scroll-behavior: smooth;
-        }
-
-        /* Styled Horizontal Scrollbar */
-        .gallery-scroll-container::-webkit-scrollbar {
-            height: 10px;
-        }
-        .gallery-scroll-container::-webkit-scrollbar-track {
-            background: #eee; 
-            border-radius: 5px;
-        }
-        .gallery-scroll-container::-webkit-scrollbar-thumb {
-            background: #8B1E15; 
-            border-radius: 5px;
-        }
-        .gallery-scroll-container::-webkit-scrollbar-thumb:hover {
-            background: #d4af37; 
-        }
-
-        /* Premium Elite Gallery Frames */
-        .gallery-item {
-            flex: 0 0 auto;
-            width: 750px; 
-            max-width: 85vw;
-            aspect-ratio: 16/9;
-            position: relative;
-            cursor: pointer;
-            
-            /* Premium Museum Exhibition Framing */
-            background: #0f0f0f; /* Deep dark velvet matte */
-            padding: 25px; /* Inner matte width */
-            border: 4px solid #c5a059; /* High-end gold outer frame */
-            border-radius: 4px;
-            box-shadow: 
-                0 25px 50px rgba(0,0,0,0.25), /* Deep outer shadow */
-                inset 0 0 30px rgba(0,0,0,0.9); /* Strong inner shadow emphasizing the photo */
-            
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
-        }
-
-        /* Inner fine gold detailing simulating a carved frame edge */
-        .gallery-item::before {
-            content: '';
-            position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 
-                0 35px 60px rgba(0,0,0,0.35),
-                inset 0 0 30px rgba(0,0,0,0.9);
-            border-color: #d4af37;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border: 2px solid #222; /* Separator line between image and dark matte */
-            transition: filter 0.6s ease;
-            filter: grayscale(15%) brightness(0.9);
-            position: relative;
-            z-index: 2;
-        }
-
-        .gallery-item:hover img {
-            filter: grayscale(0%) brightness(1.05);
-        }
-
-        /* Elegant Hover Button */
-        .gallery-item::after {
-            content: 'Görseli İncele';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            background: rgba(139, 30, 21, 0.95);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 1rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            pointer-events: none;
-            z-index: 5;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
-            border: 1px solid #d4af37;
-        }
-
-        .gallery-item:hover::after {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
         /* Lightbox styling */
         .lightbox {
             position: fixed;
@@ -446,7 +439,7 @@
         .lightbox img {
             max-width: 90vw;
             max-height: 90vh;
-            border-radius: 4px;
+            border-radius: 6px;
             box-shadow: 0 0 40px rgba(0,0,0,0.9);
             object-fit: contain;
             transform: scale(0.9);
@@ -829,7 +822,6 @@
             height: 26px;
             object-fit: contain;
             transition: transform 0.3s ease;
-            mix-blend-mode: multiply;
         }
 
         .social-links a:hover {
@@ -938,11 +930,11 @@
             .president-profile { flex: 0 0 auto; max-width: 350px; }
             .exterior-frame { width: 45%; }
             .message-container::before { display: none; }
-            .gallery-item { width: 85vw; }
+            .gallery-item { width: 60vw; } /* Slightly narrower on tablets to peek next image */
         }
 
         @media (max-width: 768px) {
-            /* Compact Nav / Solid Background on Mobile - UPDATED TO DARK RED FOR VISIBILITY */
+            /* Compact Nav / Solid Background on Mobile */
             nav { padding: 10px 15px; flex-wrap: wrap; justify-content: center; gap: 8px; background-color: rgba(139, 30, 21, 0.98); border-bottom: 2px solid #d4af37; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
             nav a { color: #fff !important; text-shadow: none !important; font-size: 11px; letter-spacing: 1px; padding: 5px; }
             nav a:hover, nav a.active { color: #d4af37 !important; }
@@ -953,7 +945,6 @@
             nav.solid-bg .logo-container img { height: 50px; }
             .nav-links { gap: 8px; justify-content: center; flex-wrap: wrap; width: 100%; }
             
-            /* Shifted background photo slightly right so image clears the text on mobile */
             .hero-section { padding-top: 140px; padding-left: 20px; padding-right: 20px; background-position: 60% center; } 
             .hero-section h1 { font-size: 2.2rem; }
             .hero-section p { font-size: 1rem; margin-bottom: 60px; }
@@ -962,7 +953,8 @@
             
             #slide-2 .slide-content, #slide-3 .slide-content, #slide-4 .slide-content, #slide-5 .slide-content { padding: 150px 15px 30px 15px; }
             
-            /* Remove the text inside hover states for gallery on mobile */
+            /* Sizing mobile gallery so the 3rd picture actively peeks in */
+            .gallery-item { width: 75vw; min-width: 0; } 
             .gallery-item::after { display: none !important; }
             
             .hakkimizda-content { gap: 40px; }
@@ -970,9 +962,8 @@
             /* Mobile-Specific Kat Planı Adjustment */
             #slide-4 .slide-content { padding-left: 0; padding-right: 0; padding-bottom: 0; display: flex; flex-direction: column; justify-content: center;}
             .kat-plani-box { max-width: 100vw; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-            .kat-plani-box h2 { font-size: 2.2rem; margin-bottom: 20px; margin-top: 0;}
-            /* Force the image to cover the screen entirely horizontally and made clickable */
-            .kat-plani-box img { width: 100vw; max-height: 70vh; border-radius: 0; padding: 0; border: none; cursor: pointer; }
+            .kat-plani-box h2 { font-size: 2.2rem; margin-bottom: 10px; margin-top: -30px;}
+            .kat-plani-box img { width: 100vw; max-height: 85vh; border-radius: 0; padding: 0; border: none; cursor: pointer; }
             
             .message-container { padding: 25px 15px; }
             .message-text h2 { font-size: 2rem; }
@@ -1026,9 +1017,6 @@
                         </div>
                         <div class="exterior-frame">
                             <img src="etomuze2.jpg" alt="Müze Dış Görünüm 2" onerror="this.style.display='none'">
-                        </div>
-                        <div class="exterior-frame">
-                            <img src="etomuze1.jpg" alt="Müze Mimari Görünüm" onerror="this.style.display='none'">
                         </div>
                     </div>
                 </div>
@@ -1158,7 +1146,6 @@
         const nav = document.getElementById('main-nav');
         const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-        // Toggle Kat Planı images based on screen size so only mobile is clickable
         if (isMobile) {
             document.querySelector('.desktop-kat-plani').style.display = 'none';
             document.querySelector('.mobile-kat-plani').style.display = 'block';
@@ -1200,7 +1187,7 @@
             });
         });
 
-        // 2. Lightbox Mechanics WITH Mobile Hardware Back Button Support
+        // 2. Lightbox Mechanics
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
@@ -1267,7 +1254,7 @@
             slide.insertAdjacentHTML('beforeend', footerHTML);
         });
 
-        // 4. Dummy Form Submission Logic (Perfect for Pitching)
+        // 4. Dummy Form Submission Logic
         const dateInput = document.getElementById('randevu-tarihi');
         if (dateInput) {
             const today = new Date();
