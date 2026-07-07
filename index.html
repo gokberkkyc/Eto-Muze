@@ -252,43 +252,10 @@
             font-family: 'Georgia', serif;
             font-size: 2.8rem;
             margin-top: 0;
-            margin-bottom: 10px;
-            padding-bottom: 15px;
+            margin-bottom: 30px;
             letter-spacing: 1px;
             border-bottom: 2px solid #eee;
-        }
-
-        .scroll-hint {
-            text-align: center;
-            color: #555;
-            background-color: rgba(139, 30, 21, 0.1);
-            border-radius: 30px;
-            padding: 10px 20px;
-            display: inline-block;
-            margin: 0 auto 30px auto;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 1.1rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            width: fit-content;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .scroll-hint-wrapper {
-            text-align: center;
-            width: 100%;
-        }
-
-        .scroll-hint span {
-            display: inline-block;
-            animation: slideRight 1.5s infinite;
-            margin-left: 8px;
-            color: #8B1E15;
-        }
-
-        @keyframes slideRight {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
+            padding-bottom: 15px;
         }
 
         .gallery-scroll-container {
@@ -365,6 +332,40 @@
         .gallery-item:hover::before {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
+        }
+
+        .scroll-hint-wrapper {
+            text-align: center;
+            width: 100%;
+            margin-top: 20px; 
+            margin-bottom: 40px; 
+        }
+
+        .scroll-hint {
+            text-align: center;
+            color: #555;
+            background-color: rgba(139, 30, 21, 0.1);
+            border-radius: 30px;
+            padding: 10px 25px;
+            display: inline-block;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: fit-content;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .scroll-hint span {
+            display: inline-block;
+            animation: slideRight 1.5s infinite;
+            margin-left: 8px;
+            color: #8B1E15;
+        }
+
+        @keyframes slideRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
         }
 
         /* Lightbox styling */
@@ -774,14 +775,16 @@
             width: 26px;
             height: 26px;
             object-fit: contain;
+            mix-blend-mode: multiply; 
             transition: transform 0.3s ease;
-            /* Filter removed so colors show naturally */
         }
 
         .social-links a:hover {
-            background-color: #f5f5f5;
+            background-color: #d4af37;
+            color: #111;
+            border-color: #d4af37;
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
         }
 
         .social-links a:hover img {
@@ -888,7 +891,7 @@
         }
 
         @media (max-width: 768px) {
-            /* Compact Nav / Solid Background on Mobile - UPDATED TO DARK RED FOR VISIBILITY */
+            /* Compact Nav / Solid Background on Mobile */
             nav { padding: 10px 15px; flex-wrap: wrap; justify-content: center; gap: 8px; background-color: rgba(139, 30, 21, 0.98); border-bottom: 2px solid #d4af37; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
             nav a { color: #fff !important; text-shadow: none !important; font-size: 11px; letter-spacing: 1px; padding: 5px; }
             nav a:hover, nav a.active { color: #d4af37 !important; }
@@ -899,7 +902,6 @@
             nav.solid-bg .logo-container img { height: 50px; }
             .nav-links { gap: 8px; justify-content: center; flex-wrap: wrap; width: 100%; }
             
-            /* Shifted background photo slightly right so image clears the text on mobile */
             .hero-section { padding-top: 140px; padding-left: 20px; padding-right: 20px; background-position: 60% center; } 
             .hero-section h1 { font-size: 2.2rem; }
             .hero-section p { font-size: 1rem; margin-bottom: 60px; }
@@ -977,9 +979,6 @@
                 <div class="slide-content">
                     <div class="gallery-wrapper">
                         <h2 class="gallery-title">Foto Galeri</h2>
-                        <div class="scroll-hint-wrapper">
-                            <p class="scroll-hint">Daha fazla görsel için sağa kaydırın <span>→</span></p>
-                        </div>
                         <div class="gallery-scroll-container">
                             <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
                                 <img src="background1.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
@@ -996,6 +995,9 @@
                             <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
                                 <img src="background4.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
                             </div>
+                        </div>
+                        <div class="scroll-hint-wrapper">
+                            <p class="scroll-hint">Daha fazla görsel için sağa kaydırın <span>→</span></p>
                         </div>
                     </div>
                 </div>
@@ -1034,7 +1036,8 @@
                 <div class="slide-content">
                     <div class="kat-plani-box">
                         <h2>Müze Kat Planı</h2>
-                        <img src="katplani.png" alt="Kat Planı" onclick="openLightbox(this.src)" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5LYXQgUGxhbsSxIEdvcnNlbGk8L3RleHQ+PC9zdmc+'">
+                        <img src="katplani.png" alt="Kat Planı" class="desktop-kat-plani" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5LYXQgUGxhbsSxIEdvcnNlbGk8L3RleHQ+PC9zdmc+'">
+                        <img src="katplani.png" alt="Kat Planı" class="mobile-kat-plani" onclick="openLightbox(this.src)" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5LYXQgUGxhbsSxIEdvcnNlbGk8L3RleHQ+PC9zdmc+'" style="display: none;">
                     </div>
                 </div>
             </div>
@@ -1095,6 +1098,12 @@
         const slider = document.getElementById('slider');
         const nav = document.getElementById('main-nav');
         const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+        // Toggle Kat Planı images based on screen size so only mobile is clickable
+        if (isMobile) {
+            document.querySelector('.desktop-kat-plani').style.display = 'none';
+            document.querySelector('.mobile-kat-plani').style.display = 'block';
+        }
 
         buttons.forEach(button => {
             button.addEventListener('click', () => {
