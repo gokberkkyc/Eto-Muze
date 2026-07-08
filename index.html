@@ -56,9 +56,24 @@
             height: 80px; 
         }
 
+        /* Hamburger Menu Icon (Hidden on Desktop) */
+        .hamburger {
+            display: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
         .nav-links {
             display: flex;
             gap: 30px;
+            transition: all 0.3s ease;
         }
 
         nav a {
@@ -440,12 +455,10 @@
             max-width: 90vw;
             max-height: 90vh;
             border-radius: 6px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            box-shadow: 0 0 40px rgba(0,0,0,0.9);
             object-fit: contain;
             transform: scale(0.9);
             transition: transform 0.3s ease;
-            background-color: #ffffff; /* Preserves white background for transparent PNGs */
-            padding: 10px;
         }
 
         .lightbox.active img {
@@ -824,7 +837,6 @@
             height: 26px;
             object-fit: contain;
             transition: transform 0.3s ease;
-            mix-blend-mode: multiply;
         }
 
         .social-links a:hover {
@@ -937,24 +949,42 @@
         }
 
         @media (max-width: 768px) {
-            /* Compact Nav / Solid Background on Mobile */
-            nav { padding: 10px 15px; flex-wrap: wrap; justify-content: center; gap: 8px; background-color: rgba(139, 30, 21, 0.98); border-bottom: 2px solid #d4af37; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-            nav a { color: #fff !important; text-shadow: none !important; font-size: 11px; letter-spacing: 1px; padding: 5px; }
+            /* HAMBURGER MENU - MOBILE ONLY */
+            nav { padding: 15px 20px; flex-wrap: wrap; justify-content: space-between; gap: 8px; background-color: rgba(139, 30, 21, 0.98) !important; border-bottom: 2px solid #d4af37; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+            
+            .hamburger { display: flex; text-shadow: none; color: #fff !important; }
+            
+            /* Hidden drop down list */
+            .nav-links { 
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(139, 30, 21, 0.98);
+                border-bottom: 2px solid #d4af37;
+                flex-direction: column;
+                align-items: center;
+                padding: 10px 0;
+                gap: 15px;
+                display: none; 
+                box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+            }
+            .nav-links.active { display: flex; }
+            
+            nav a { color: #fff !important; text-shadow: none !important; font-size: 14px; letter-spacing: 2px; padding: 10px; width: 100%; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
             nav a:hover, nav a.active { color: #d4af37 !important; }
-            nav a::after { background-color: #d4af37; }
+            nav a::after { display: none; } /* Hide the underline effect in mobile dropdown */
             
-            .logo-container { margin-bottom: 5px; }
-            .logo-container img { height: 55px !important; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.4)) !important; }
-            nav.solid-bg .logo-container img { height: 50px; }
-            .nav-links { gap: 8px; justify-content: center; flex-wrap: wrap; width: 100%; }
+            .logo-container { margin-bottom: 0; }
+            .logo-container img { height: 50px !important; filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.1)) !important; }
             
-            .hero-section { padding-top: 140px; padding-left: 20px; padding-right: 20px; background-position: 60% center; } 
+            .hero-section { padding-top: 100px; padding-left: 20px; padding-right: 20px; background-position: 60% center; } 
             .hero-section h1 { font-size: 2.2rem; }
             .hero-section p { font-size: 1rem; margin-bottom: 60px; }
             
             .exterior-frame { width: 100%; }
             
-            #slide-2 .slide-content, #slide-3 .slide-content, #slide-4 .slide-content, #slide-5 .slide-content { padding: 150px 15px 30px 15px; }
+            #slide-2 .slide-content, #slide-3 .slide-content, #slide-4 .slide-content, #slide-5 .slide-content { padding: 120px 15px 30px 15px; }
             
             .gallery-item::after { display: none !important; }
             
@@ -989,7 +1019,12 @@
         <div class="logo-container">
             <img src="logobuyuk.png" alt="Eto Müze Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCI+PGNpcmNsZSBjeD0iNDUiIGN5PSI0NSIgcj0iNDUiIGZpbGw9IiM4QjFFMTUiLz48dGV4dCB4PSI0NSIgeT0iNTUiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVUTzwvdGV4dD48L3N2Zz4='">
         </div>
-        <div class="nav-links">
+        
+        <div class="hamburger" id="hamburger">
+            &#9776; Menü
+        </div>
+
+        <div class="nav-links" id="nav-links">
             <a class="nav-btn active" data-index="0">Anasayfa</a>
             <a class="nav-btn" data-index="1">Foto Galeri</a>
             <a class="nav-btn" data-index="2">Hakkımızda</a>
@@ -1027,9 +1062,6 @@
                 <div class="slide-content">
                     <div class="gallery-wrapper">
                         <h2 class="gallery-title">Foto Galeri</h2>
-                        <div class="scroll-hint-wrapper">
-                            <p class="scroll-hint">Daha fazla görsel için sağa kaydırın <span>→</span></p>
-                        </div>
                         <div class="gallery-scroll-container">
                             <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
                                 <img src="background1.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
@@ -1046,6 +1078,9 @@
                             <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
                                 <img src="background4.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
                             </div>
+                        </div>
+                        <div class="scroll-hint-wrapper">
+                            <p class="scroll-hint">Daha fazla görsel için sağa kaydırın <span>→</span></p>
                         </div>
                     </div>
                 </div>
@@ -1094,7 +1129,7 @@
                 <div class="slide-content">
                     <div class="form-container">
                         <h2>Randevu Al</h2>
-                        <form id="randevuForm">
+                        <form id="randevuForm" action="https://formspree.io/f/gokberk.kyc@gmail.com" method="POST">
                             <div class="form-group">
                                 <label for="hizmet">Hizmet Seçiniz:</label>
                                 <select id="hizmet" name="Hizmet_Turu">
@@ -1141,10 +1176,12 @@
     </div>
 
     <script>
-        // 1. Slider & Smooth Background Scroll Reset Mechanics
+        // 1. Slider & Nav Mechanics
         const buttons = document.querySelectorAll('.nav-btn');
         const slider = document.getElementById('slider');
         const nav = document.getElementById('main-nav');
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
         const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
         if (isMobile) {
@@ -1152,11 +1189,21 @@
             document.querySelector('.mobile-kat-plani').style.display = 'block';
         }
 
+        // Toggle mobile hamburger menu
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
         buttons.forEach(button => {
             button.addEventListener('click', () => {
                 const index = button.getAttribute('data-index');
                 const targetSlideId = `slide-${parseInt(index) + 1}`;
                 const targetSlide = document.getElementById(targetSlideId);
+
+                // Close mobile menu on click
+                if (isMobile) {
+                    navLinks.classList.remove('active');
+                }
 
                 if(button.classList.contains('active')) {
                     targetSlide.scrollTo({ top: 0, behavior: 'smooth' });
