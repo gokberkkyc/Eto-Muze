@@ -56,9 +56,24 @@
             height: 80px; 
         }
 
+        /* Hamburger Menu Icon (Hidden on Desktop) */
+        .hamburger {
+            display: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
         .nav-links {
             display: flex;
             gap: 30px;
+            transition: all 0.3s ease;
         }
 
         nav a {
@@ -211,28 +226,54 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
-            padding: 80px 40px;
+            gap: 60px; 
+            padding: 100px 5%;
             background-color: #f8f5f0;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .exterior-gallery img {
-            width: 30%; 
-            min-width: 250px;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .exterior-frame {
+            width: 42%; 
+            min-width: 300px;
+            background: #ffffff; 
+            padding: 15px; 
+            padding-bottom: 45px; 
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12), 0 5px 15px rgba(0,0,0,0.06);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+        }
+
+        .exterior-frame::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background-color: #d4af37; 
+            opacity: 0.5;
+        }
+
+        .exterior-frame:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.18), 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .exterior-frame img {
+            width: 100%;
+            height: 100%;
+            display: block;
             object-fit: cover;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .exterior-gallery img:hover {
-            transform: scale(1.03);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border: 1px solid #ccc; 
+            aspect-ratio: 4/3; 
         }
 
         /* --- Slide 2: Foto Galeri --- */
-        #slide-2 { background-color: #fcfcfc; }
+        #slide-2 { background-color: #e5d9c5; } /* Updated to match Hakkımızda color */
 
         #slide-2 .slide-content {
             padding: 140px 50px 80px 50px;
@@ -255,86 +296,119 @@
             margin-bottom: 10px;
             padding-bottom: 15px;
             letter-spacing: 1px;
-            border-bottom: 2px solid #eee;
+            border-bottom: 2px solid rgba(139, 30, 21, 0.2);
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .scroll-hint-wrapper {
+            text-align: center;
+            width: 100%;
+            margin-top: 20px; 
+            margin-bottom: 40px; 
         }
 
         .scroll-hint {
-            text-align: right;
-            color: #888;
+            text-align: center;
+            color: #555;
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(139, 30, 21, 0.1);
+            border-radius: 30px;
+            padding: 10px 25px;
+            display: inline-block;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 0.95rem;
-            font-style: italic;
-            margin-bottom: 20px;
-            padding-right: 10px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: fit-content;
         }
 
         .scroll-hint span {
             display: inline-block;
             animation: slideRight 1.5s infinite;
+            margin-left: 8px;
+            color: #8B1E15;
         }
 
         @keyframes slideRight {
             0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(8px); }
+            50% { transform: translateX(10px); }
         }
 
         .gallery-scroll-container {
             display: flex;
             overflow-x: auto;
-            gap: 30px;
-            padding: 10px 10px 30px 10px;
+            gap: 40px; 
+            padding: 20px 5% 40px 5%; 
             scroll-behavior: smooth;
         }
 
-        /* Styled Horizontal Scrollbar */
-        .gallery-scroll-container::-webkit-scrollbar {
-            height: 10px;
-        }
-        .gallery-scroll-container::-webkit-scrollbar-track {
-            background: #eee; 
-            border-radius: 5px;
-        }
-        .gallery-scroll-container::-webkit-scrollbar-thumb {
-            background: #8B1E15; 
-            border-radius: 5px;
-        }
-        .gallery-scroll-container::-webkit-scrollbar-thumb:hover {
-            background: #d4af37; 
-        }
+        .gallery-scroll-container::-webkit-scrollbar { height: 10px; }
+        .gallery-scroll-container::-webkit-scrollbar-track { background: rgba(255,255,255,0.3); border-radius: 5px; }
+        .gallery-scroll-container::-webkit-scrollbar-thumb { background: #8B1E15; border-radius: 5px; }
+        .gallery-scroll-container::-webkit-scrollbar-thumb:hover { background: #d4af37; }
 
+        /* Premium Elite Gallery Frames */
         .gallery-item {
             flex: 0 0 auto;
-            width: 750px; 
-            max-width: 85vw;
+            width: 40vw; 
+            min-width: 500px; 
+            max-width: 800px;
             aspect-ratio: 16/9;
             position: relative;
-            overflow: hidden;
-            border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            
+            background: #0f0f0f; 
+            padding: 25px; 
+            border: 4px solid #c5a059; 
+            border-radius: 4px;
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.15), 
+                inset 0 0 30px rgba(0,0,0,0.9); 
+            
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 35px 60px rgba(0,0,0,0.25),
+                inset 0 0 30px rgba(0,0,0,0.9);
+            border-color: #d4af37;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+            border: 2px solid #222; 
+            transition: filter 0.6s ease;
             filter: grayscale(15%) brightness(0.9);
+            position: relative;
+            z-index: 2;
         }
 
         .gallery-item:hover img {
-            transform: scale(1.05);
             filter: grayscale(0%) brightness(1.05);
         }
 
-        /* Elegant Hover Button */
-        .gallery-item::before {
+        .gallery-item::after {
             content: 'Görseli İncele';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.9);
-            background: rgba(139, 30, 21, 0.9);
+            background: rgba(139, 30, 21, 0.95);
             color: white;
             padding: 15px 30px;
             border-radius: 30px;
@@ -345,11 +419,12 @@
             opacity: 0;
             transition: opacity 0.3s ease, transform 0.3s ease;
             pointer-events: none;
-            z-index: 2;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            z-index: 5;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            border: 1px solid #d4af37;
         }
 
-        .gallery-item:hover::before {
+        .gallery-item:hover::after {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
         }
@@ -361,7 +436,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0,0,0,0.92);
+            background-color: rgba(0,0,0,0.95);
             z-index: 1000;
             display: flex;
             justify-content: center;
@@ -380,10 +455,12 @@
             max-width: 90vw;
             max-height: 90vh;
             border-radius: 6px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            box-shadow: 0 0 40px rgba(0,0,0,0.9);
             object-fit: contain;
             transform: scale(0.9);
             transition: transform 0.3s ease;
+            background-color: #ffffff;
+            padding: 10px;
         }
 
         .lightbox.active img {
@@ -401,6 +478,7 @@
             line-height: 1;
             font-family: 'Helvetica Neue', sans-serif;
             font-weight: 300;
+            z-index: 1001;
         }
 
         .lightbox-close:hover { color: #d4af37; }
@@ -568,6 +646,7 @@
             border-radius: 8px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             padding: 10px;
+            cursor: pointer;
         }
 
         /* --- Slide 5: Randevu Al --- */
@@ -727,12 +806,11 @@
             text-transform: uppercase;
         }
 
-        /* --- Social Links Fixing the White Squares --- */
         .social-links {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .social-links a {
@@ -741,8 +819,8 @@
             justify-content: center;
             gap: 12px;
             padding: 12px 25px;
-            background-color: #ffffff; /* White background blends the white square image */
-            color: #8B1E15; /* Red text */
+            background-color: #ffffff; 
+            color: #8B1E15; 
             border: 2px solid #8B1E15;
             text-decoration: none;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -760,16 +838,13 @@
             width: 26px;
             height: 26px;
             object-fit: contain;
-            mix-blend-mode: multiply; /* Erases any lingering white background from the image against the button */
             transition: transform 0.3s ease;
         }
 
         .social-links a:hover {
-            background-color: #d4af37;
-            color: #111;
-            border-color: #d4af37;
+            background-color: #f5f5f5;
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
 
         .social-links a:hover img {
@@ -806,32 +881,136 @@
             border-left: 2px solid #8B1E15;
         }
 
+        /* Modal Overlay for Form Success */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            border-top: 5px solid #d4af37;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 400px;
+        }
+
+        .modal-content h3 {
+            color: #8B1E15;
+            font-family: 'Georgia', serif;
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+
+        .modal-content p {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #444;
+            font-size: 1.1rem;
+        }
+
+        .modal-close-btn {
+            background-color: #8B1E15;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close-btn:hover { background-color: #d4af37; color: #111; }
+
         /* --- Mobile Adjustments --- */
         @media (max-width: 992px) {
             .message-container { flex-direction: column; align-items: center; padding: 40px; }
             .president-profile { flex: 0 0 auto; max-width: 350px; }
-            .exterior-gallery img { width: 45%; }
+            .exterior-frame { width: 45%; }
             .message-container::before { display: none; }
             .gallery-item { width: 85vw; }
         }
 
         @media (max-width: 768px) {
-            nav { padding: 10px 15px; flex-wrap: wrap; justify-content: center; gap: 8px; }
-            .logo-container { margin-bottom: 5px; }
-            .logo-container img { height: 60px; }
-            nav.solid-bg .logo-container img { height: 50px; }
-            .nav-links { gap: 8px; justify-content: center; flex-wrap: wrap; width: 100%; }
-            nav a { font-size: 11px; letter-spacing: 1px; padding: 5px; }
+            /* HAMBURGER MENU - MOBILE ONLY */
+            nav { padding: 10px 15px; flex-direction: row; justify-content: space-between; align-items: center; background-color: rgba(139, 30, 21, 0.98) !important; border-bottom: 2px solid #d4af37; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
             
-            .hero-section { padding-top: 140px; padding-left: 20px; padding-right: 20px; } 
+            .logo-container { order: 1; }
+            .logo-container img { height: 50px !important; filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.1)) !important; }
+            nav.solid-bg .logo-container img { height: 50px; }
+
+            .hamburger { order: 2; display: flex; text-shadow: none; color: #fff !important; font-size: 1.2rem; padding: 5px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; background: rgba(0,0,0,0.1); }
+            
+            /* Hidden drop down list */
+            .nav-links { 
+                order: 3;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 200px;
+                background-color: rgba(139, 30, 21, 0.98);
+                border-bottom: 2px solid #d4af37;
+                border-left: 2px solid #d4af37;
+                border-bottom-left-radius: 8px;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 0;
+                gap: 0;
+                /* Animation properties */
+                max-height: 0;
+                opacity: 0;
+                overflow: hidden;
+                box-shadow: -5px 10px 15px rgba(0,0,0,0.3);
+                transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+            }
+            
+            .nav-links.active { 
+                max-height: 400px; /* Arbitrary large number to allow content to expand */
+                opacity: 1;
+            }
+            
+            nav a { color: #fff !important; text-shadow: none !important; font-size: 13px; letter-spacing: 1px; padding: 15px 20px; width: 100%; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            nav a:hover, nav a.active { color: #d4af37 !important; background: rgba(0,0,0,0.1); }
+            nav a::after { display: none; }
+            
+            .hero-section { padding-top: 100px; padding-left: 20px; padding-right: 20px; background-position: 60% center; } 
             .hero-section h1 { font-size: 2.2rem; }
             .hero-section p { font-size: 1rem; margin-bottom: 60px; }
-            .exterior-gallery img { width: 100%; }
             
-            #slide-2 .slide-content, #slide-3 .slide-content, #slide-4 .slide-content, #slide-5 .slide-content { padding: 150px 15px 30px 15px; }
+            .exterior-frame { width: 100%; }
+            
+            #slide-2 .slide-content, #slide-3 .slide-content, #slide-4 .slide-content, #slide-5 .slide-content { padding: 120px 15px 30px 15px; }
+            
+            .scroll-hint { display: none !important; } /* Hide red scroll indicator on mobile gallery */
+            .gallery-item::after { display: none !important; }
             
             .hakkimizda-content { gap: 40px; }
-            .kat-plani-box h2 { font-size: 2rem; margin-bottom: 15px;}
+            
+            /* Mobile-Specific Kat Planı Adjustment */
+            #slide-4 .slide-content { padding-left: 0; padding-right: 0; padding-bottom: 0; display: flex; flex-direction: column; justify-content: center;}
+            .kat-plani-box { max-width: 100vw; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+            .kat-plani-box h2 { font-size: 2.2rem; margin-bottom: 10px; margin-top: -30px;}
+            .kat-plani-box img { width: 100vw; max-height: 85vh; border-radius: 0; padding: 0; border: none; cursor: pointer; }
+            
             .message-container { padding: 25px 15px; }
             .message-text h2 { font-size: 2rem; }
             .lightbox-close { top: 15px; right: 20px; font-size: 3rem; }
@@ -855,7 +1034,12 @@
         <div class="logo-container">
             <img src="logobuyuk.png" alt="Eto Müze Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCI+PGNpcmNsZSBjeD0iNDUiIGN5PSI0NSIgcj0iNDUiIGZpbGw9IiM4QjFFMTUiLz48dGV4dCB4PSI0NSIgeT0iNTUiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVUTzwvdGV4dD48L3N2Zz4='">
         </div>
-        <div class="nav-links">
+        
+        <div class="hamburger" id="hamburger">
+            ☰ Menü
+        </div>
+
+        <div class="nav-links" id="nav-links">
             <a class="nav-btn active" data-index="0">Anasayfa</a>
             <a class="nav-btn" data-index="1">Foto Galeri</a>
             <a class="nav-btn" data-index="2">Hakkımızda</a>
@@ -879,9 +1063,12 @@
                     </div>
 
                     <div class="exterior-gallery">
-                        <img src="etomuze.jpg" alt="Müze Dış Görünüm 1" onerror="this.style.display='none'">
-                        <img src="etomuze2.jpg" alt="Müze Dış Görünüm 2" onerror="this.style.display='none'">
-                        <img src="etomuze1.jpg" alt="Müze Mimari Görünüm" onerror="this.style.display='none'">
+                        <div class="exterior-frame">
+                            <img src="etomuze.jpg" alt="Müze Dış Görünüm 1" onerror="this.style.display='none'">
+                        </div>
+                        <div class="exterior-frame">
+                            <img src="etomuze2.jpg" alt="Müze Dış Görünüm 2" onerror="this.style.display='none'">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -890,7 +1077,6 @@
                 <div class="slide-content">
                     <div class="gallery-wrapper">
                         <h2 class="gallery-title">Foto Galeri</h2>
-                        <p class="scroll-hint">Daha fazla görsel için sağa kaydırın <span>→</span></p>
                         <div class="gallery-scroll-container">
                             <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
                                 <img src="background1.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
@@ -908,6 +1094,9 @@
                                 <img src="background4.jpg" alt="Müze Görseli" onerror="this.style.display='none'">
                             </div>
                         </div>
+                        <div class="scroll-hint-wrapper">
+                            <p class="scroll-hint">Daha fazla görsel için sağa kaydırın <span>→</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -923,7 +1112,7 @@
                                 <p>Eskişehir Ticaret Odası Başkanı</p>
                             </div>
                             <div class="message-text">
-                                <h2>Başkan'ın Mesajı</h2>
+                                <h2>Başkanımızın Mesajı</h2>
                                 <p>Merhaba…</p>
                                 <p>Eskişehir Ticaret Odası olarak camiamıza yakışan bir eseri daha şehrimize kazandırmanın gururu içerisindeyiz. Eskişehir’in ticaret ve sanayi tarihine tanıklık etmesi hayaliyle başladığımız müzemizde çok uzun ve zorlu bir yoldan geçtik.</p>
                                 <p>Eskişehir Ticaret ve Sanayi Müzesi, tarihi konaklarıyla ülkece tanınan, geleneksel dokusunu halen koruyan Odunpazarı Bölgesi’nde, 3 katlı, tescilli bir konakta hayat buluyor. Umuyorum ki bulunduğu konum ve yüklendiği misyon ile müzemiz, şehrin markalaşmasında ve turizm gelirlerinin artmasında payına düşen katkıyı sağlayacaktır.</p>
@@ -945,7 +1134,8 @@
                 <div class="slide-content">
                     <div class="kat-plani-box">
                         <h2>Müze Kat Planı</h2>
-                        <img src="katplani.png" alt="Kat Planı" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5LYXQgUGxhbsSxIEdvcnNlbGk8L3RleHQ+PC9zdmc+'">
+                        <img src="katplani.png" alt="Kat Planı" class="desktop-kat-plani" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5LYXQgUGxhbsSxIEdvcnNlbGk8L3RleHQ+PC9zdmc+'">
+                        <img src="katplani.png" alt="Kat Planı" class="mobile-kat-plani" onclick="openLightbox(this.src)" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5LYXQgUGxhbsSxIEdvcnNlbGk8L3RleHQ+PC9zdmc+'" style="display: none;">
                     </div>
                 </div>
             </div>
@@ -954,7 +1144,7 @@
                 <div class="slide-content">
                     <div class="form-container">
                         <h2>Randevu Al</h2>
-                        <form action="mailto:gokberk.kyc@hotmail.com" method="post" enctype="text/plain">
+                        <form id="randevuForm" action="https://formspree.io/f/gokberk.kyc@gmail.com" method="POST">
                             <div class="form-group">
                                 <label for="hizmet">Hizmet Seçiniz:</label>
                                 <select id="hizmet" name="Hizmet_Turu">
@@ -987,16 +1177,37 @@
         </div>
     </div>
 
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Talebiniz Alınmıştır!</h3>
+            <p>En kısa sürede sizinle iletişime geçeceğiz.</p>
+            <button class="modal-close-btn" onclick="closeModal()">Kapat</button>
+        </div>
+    </div>
+
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close" onclick="closeLightbox()">×</span>
         <img id="lightbox-img" src="">
     </div>
 
     <script>
-        // 1. Slider & Smooth Background Scroll Reset Mechanics
+        // 1. Slider & Nav Mechanics
         const buttons = document.querySelectorAll('.nav-btn');
         const slider = document.getElementById('slider');
         const nav = document.getElementById('main-nav');
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+        if (isMobile) {
+            document.querySelector('.desktop-kat-plani').style.display = 'none';
+            document.querySelector('.mobile-kat-plani').style.display = 'block';
+        }
+
+        // Toggle mobile hamburger menu
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
 
         buttons.forEach(button => {
             button.addEventListener('click', () => {
@@ -1004,31 +1215,32 @@
                 const targetSlideId = `slide-${parseInt(index) + 1}`;
                 const targetSlide = document.getElementById(targetSlideId);
 
-                // If user clicks the button for the page they are already on, smooth scroll back to top
+                // Close mobile menu on click
+                if (isMobile) {
+                    navLinks.classList.remove('active');
+                }
+
                 if(button.classList.contains('active')) {
                     targetSlide.scrollTo({ top: 0, behavior: 'smooth' });
                     return; 
                 }
 
-                // Normal navigation slide behavior
                 buttons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
                 
-                // Immediately slide to the new page
                 slider.style.transform = `translateX(-${index * 100}vw)`;
 
-                if(index == 0) {
-                    nav.classList.remove('solid-bg');
-                } else {
-                    nav.classList.add('solid-bg');
+                if (!isMobile) {
+                    if(index == 0) {
+                        nav.classList.remove('solid-bg');
+                    } else {
+                        nav.classList.add('solid-bg');
+                    }
                 }
 
-                // Wait for the slide transition to finish (900ms), THEN reset scroll of hidden slides
-                // This prevents the visual jump while moving sideways.
                 setTimeout(() => {
                     document.querySelectorAll('.slide').forEach((slide, i) => {
                         if (i != index) {
-                            // Turn off smooth behavior briefly to snap to top instantly in background
                             slide.style.scrollBehavior = 'auto';
                             slide.scrollTo(0, 0);
                             slide.style.scrollBehavior = 'smooth';
@@ -1038,18 +1250,27 @@
             });
         });
 
-        // 2. Lightbox Mechanics for Photo Gallery
+        // 2. Lightbox Mechanics WITH Mobile Hardware Back Button Support
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
         function openLightbox(src) {
             lightboxImg.src = src;
             lightbox.classList.add('active');
+            window.history.pushState({ lightbox: 'open' }, null, null);
         }
 
+        window.addEventListener('popstate', (e) => {
+            if (lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                setTimeout(() => { lightboxImg.src = ""; }, 300);
+            }
+        });
+
         function closeLightbox() {
-            lightbox.classList.remove('active');
-            setTimeout(() => { lightboxImg.src = ""; }, 300);
+            if(lightbox.classList.contains('active')) {
+                window.history.back();
+            }
         }
 
         lightbox.addEventListener('click', (e) => {
@@ -1058,7 +1279,7 @@
             }
         });
 
-        // 3. Dynamic Universal Footer Injection (Skipping Slide 4 -> Kat Planı)
+        // 3. Dynamic Universal Footer Injection 
         const footerHTML = `
         <footer class="footer-panel">
             <div class="footer-left">
@@ -1067,7 +1288,7 @@
                 <p><strong>Telefon:</strong> (0222) 231 55 00</p>
                 
                 <div class="ziyaret-info">
-                    <h4>ZİYARET SAATLERİ</h4>
+                    <h4>Ziyaret Saatleri</h4>
                     <p style="font-family: 'Helvetica Neue', sans-serif; margin-bottom: 5px; font-size: 1.05rem;"><strong>Açılış:</strong> 09:00  |  <strong>Kapanış:</strong> 18:00 (Pazartesi günleri kapalıdır.)</p>
                     <p style="font-family: 'Helvetica Neue', sans-serif; margin-bottom: 5px; font-size: 1.05rem;"><strong>Resmi Tatiller:</strong> Her dini bayramda birinci gün ve 1 Ocak'ta müze kapalıdır.</p>
                     <p style="font-family: 'Helvetica Neue', sans-serif; font-size: 0.9rem; margin-top: 12px; color: #bbb;"><em>Not:</em> 15 kişi ve üzeri grup ziyaretlerinde telefon ile rezervasyon alınması uygundur.</p>
@@ -1092,12 +1313,11 @@
         </footer>
         `;
 
-        // Select all slides EXCEPT #slide-4 (Kat Planı) to inject the footer
         document.querySelectorAll('.slide:not(#slide-4)').forEach(slide => {
             slide.insertAdjacentHTML('beforeend', footerHTML);
         });
 
-        // 4. Date Picker Logic for "Randevu Al"
+        // 4. Dummy Form Submission Logic
         const dateInput = document.getElementById('randevu-tarihi');
         if (dateInput) {
             const today = new Date();
@@ -1113,6 +1333,19 @@
             
             dateInput.min = formatDate(today);
             dateInput.max = formatDate(nextMonth);
+        }
+
+        const form = document.getElementById('randevuForm');
+        const modal = document.getElementById('successModal');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            modal.classList.add('active');
+            form.reset(); 
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
         }
     </script>
 </body>
